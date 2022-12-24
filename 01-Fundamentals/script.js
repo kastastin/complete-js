@@ -62,3 +62,25 @@ if (height) {
 } else {
   console.log('Height is undefined');
 }
+
+
+// Equality Operators: loose/strict: == vs ===
+const strAge = '18';
+const numAge = 18;
+if (strAge === 18) console.log(`Age: ${strAge} (strict)`); // false
+if (strAge == 18) console.log(`Age: ${strAge} (loose)`);
+if (numAge === 18) console.log(`Age: ${numAge} (strict)`);
+if (numAge == 18) console.log(`Age: ${numAge} (loose)`);
+
+const input = +prompt('Enter number:');
+console.log(input);
+
+if (input === 10) {
+  console.log('ok 10');
+} else if (input === 5) {
+  console.log('ok 5');
+} else {
+  console.log('block else');
+}
+
+if (input !== 100) console.log('not 100');

@@ -24,3 +24,11 @@ console.log(isFinlandPopulationMore);
 
 let description = `${country} is in ${continent}, and its ${halfPopulation} million people speak ${language}`;
 console.log(description);
+
+
+// Type Conversion & Coercion
+console.log('9' - '8'); // 1 (number)
+console.log('19' - '13' + '17'); // 617 (string)
+console.log('19' - '13' + 17); // 23 (number)
+console.log('123' < 57); // false (boolean)
+console.log(5 + 6 + '4' + 9 - 4 - 2); // 1143 (number)

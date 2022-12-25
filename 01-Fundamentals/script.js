@@ -104,3 +104,27 @@ checkBool(true, '||', true); // true
 checkBool(true, '||', false); // true
 checkBool(false, '||', false); // false
 
+
+// The switch statement
+let output = '';
+function fillOutput(currentDay) {
+  output = `Today is ${currentDay}`;
+}
+
+const day = 'Thursday';
+switch(day) {
+  case 'Monday':
+    fillOutput('Monday');
+    break;
+  case 'Tuesday':
+    fillOutput('Tuesday');
+    break;
+  case 'Wednesday':
+  case 'Thursday':
+    fillOutput('Wednesday or Thursday');
+    break;
+  default:
+    output = 'Not a valid day'
+}
+
+console.log(output);

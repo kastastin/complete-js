@@ -126,5 +126,14 @@ switch(day) {
   default:
     output = 'Not a valid day'
 }
-
 console.log(output);
+
+
+// The conditional (ternary) operator
+const age = 15;
+age >= 18 ? console.log('> 18') : console.log('< 18');
+
+const drink = age >= 18 ? 'wine' : 'water';
+console.log(drink); // water
+
+console.log(`I like to drink ${age >= 18 ? 'wine' : 'water'}`);

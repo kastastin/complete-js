@@ -9,6 +9,7 @@ let isIsland = false;
 let language;
 
 console.log(typeof isIsland, typeof population, typeof country, typeof language);
+console.log(`${country}'s population is ${population > 33 ? 'above' : 'below'} average`);
 
 
 language = 'Ukrainian';
@@ -35,7 +36,8 @@ console.log(5 + 6 + '4' + 9 - 4 - 2); // 1143 (number)
 
 
 // Equality Operators: loose/strict: == vs ===
-const numNeighbours = +prompt('How many neighbour countries does your country have?');
+const numNeighbours = 5;
+// const numNeighbours = +prompt('How many neighbour countries does your country have?');
 if (numNeighbours === 1) {
   console.log('Only 1 border!');
 } else if (numNeighbours >= 1) {

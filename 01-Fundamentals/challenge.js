@@ -40,5 +40,29 @@ john.compareBMI(mark);
 
 let markHigherBMI = mark.isBMIHigher;
 
-mark.printInfo(john);
-john.printInfo(mark);
+// mark.printInfo(john);
+// john.printInfo(mark);
+
+
+// Coding Challenge #3
+function calcAverageScore(...scores) {
+  let scoreSum = 0;
+  for (let score of scores) {
+    scoreSum += score;
+  }
+  const averageScore = scoreSum / scores.length;
+  return averageScore.toFixed(1);
+}
+
+const scoreDolphins = calcAverageScore(96, 108, 89);
+const scoreKoalas = calcAverageScore(88, 91, 110);
+
+console.log(scoreDolphins, scoreKoalas);
+
+if (scoreDolphins > scoreKoalas) {
+  console.log('Dolphins win');
+} else if (scoreKoalas > scoreDolphins) {
+  console.log('Koalas win');
+} else {
+  console.log('Both win');
+}

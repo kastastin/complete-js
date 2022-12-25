@@ -72,7 +72,8 @@ if (strAge == 18) console.log(`Age: ${strAge} (loose)`);
 if (numAge === 18) console.log(`Age: ${numAge} (strict)`);
 if (numAge == 18) console.log(`Age: ${numAge} (loose)`);
 
-const input = +prompt('Enter number:');
+// const input = +prompt('Enter number:');
+const input = 1;
 console.log(input);
 
 if (input === 10) {
@@ -84,3 +85,22 @@ if (input === 10) {
 }
 
 if (input !== 100) console.log('not 100');
+
+
+// Logical operators
+function checkBool(firstOperand, logicalOperator, secondOperand) {
+  result = '';
+  if (logicalOperator === '&&') {
+    result = firstOperand && secondOperand;
+  } else if (logicalOperator === '||') {
+    result = firstOperand || secondOperand;
+  }
+  console.log(`${firstOperand} ${logicalOperator} ${secondOperand} -> ${result}`);
+}
+
+checkBool(true, '&&', true); // true
+checkBool(true, '&&', false); // false
+checkBool(true, '||', true); // true
+checkBool(true, '||', false); // true
+checkBool(false, '||', false); // false
+

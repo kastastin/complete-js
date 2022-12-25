@@ -66,3 +66,12 @@ if (scoreDolphins > scoreKoalas) {
 } else {
   console.log('Both win');
 }
+
+
+// Coding Challenge #4
+const bill = 275;
+const tipPercentage = (bill > 50 && bill < 300) ? 15 : 20;
+const tip = (bill * (tipPercentage / 100)).toFixed(2);
+console.log(`The bill was ${bill}, the tip was ${tip}, and the total value ${bill + tip}`);
+
+console.log((275 * 0.20).toFixed(2));

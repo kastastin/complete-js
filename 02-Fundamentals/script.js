@@ -49,3 +49,22 @@ const yearsUntilRetirement = (firstName, birthYear) => {
   return `${firstName} retires in ${retirement} years`;
 };
 console.log(yearsUntilRetirement('Tom', 2002));
+
+
+// Functions calling other functions
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min) + min);
+}
+
+function cutFruitPieces(fruit) {
+  return fruit * getRandomInt(3, 6);
+}
+
+function fruitProcessor2(apples, oranges) {
+  const applePieces = cutFruitPieces(apples);
+  const orangePieces = cutFruitPieces(oranges);
+  return `Juice with ${applePieces} pieces of apple and ${orangePieces} pieces of orange`;
+}
+console.log(fruitProcessor2(2, 3));

@@ -68,3 +68,23 @@ function fruitProcessor2(apples, oranges) {
   return `Juice with ${applePieces} pieces of apple and ${orangePieces} pieces of orange`;
 }
 console.log(fruitProcessor2(2, 3));
+
+
+// Reviewing Functions
+const calcAge = function(birthYear) {
+  return 2022 - birthYear;
+}
+
+const yearsUntilRetirement2 = function(birthYear, firstName) {
+  const age = calcAge(birthYear);
+  const retirement = 65 - age;
+
+  if (retirement > 0) {
+    console.log(`${firstName} retires in ${retirement} years`);
+    return retirement;
+  } else {
+    console.log(`${firstName} is already retired`);
+    return -1;
+  }
+}
+yearsUntilRetirement2(2000, 'Tom');

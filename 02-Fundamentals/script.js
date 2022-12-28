@@ -88,3 +88,31 @@ const yearsUntilRetirement2 = function(birthYear, firstName) {
   }
 }
 yearsUntilRetirement2(2000, 'Tom');
+
+
+// Introduction to Arrays
+const friends = ['Tom', 'Bob', 'Nic']; // literal syntax
+const years = new Array(1991, 2000, 2010);
+const bot = ['name', 'descr', 20, false, years];
+console.log(friends, years);
+console.log(friends[0], friends[friends.length - 1]);
+
+const calcAge4 = function(birthYear) {
+  return 2037 - birthYear;
+};
+
+for (let year of years) {
+  console.log(calcAge4(year));
+}
+
+for (let i = 0; i < years.length; i++) {
+  console.log(calcAge4(years[i]));
+}
+
+function calcAge5(...yearss) {
+  for (let year of yearss) {
+    console.log(2037 - year);
+  }
+}
+
+calcAge5(...years);

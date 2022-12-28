@@ -29,3 +29,13 @@ function describePopulation(country, population) {
   return `${country} has ${population} million people, which is about ${percentageOfWorld3(population)}% of the world.`
 }
 console.log(describePopulation('China', 1441));
+
+
+// Introduction to Arrays
+const populations = [44, 17, 9, 140];
+console.log(populations.length === 4 ? true : false);
+const percentages = [];
+for (let elem of populations) {
+  percentages.push(percentageOfWorld3(elem));
+}
+console.log(percentages);

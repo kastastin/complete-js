@@ -165,3 +165,42 @@ console.log(names, indexElement, noElement);
 const isElementExist = names.includes('Bob'); // true
 const isElementExist2 = names.includes('noElement'); // false
 console.log(names, isElementExist, isElementExist2); // strict equality: includes ===
+
+
+// Introduction to Objects
+const exampleArray = [
+  'Tom',
+  'Mitch',
+  2022 - 2000,
+  'teacher',
+  ['Lui', 'Bob']
+];
+
+const exampleObject = {
+  firstName: 'Tom',
+  lastName: 'Mitch',
+  age: 2022 - 2000,
+  job: 'teacher',
+  friends: ['Lui', 'Bob']
+};
+
+// Dot & Bracket notation 
+console.log(exampleObject.firstName);
+console.log(exampleObject['firstName']);
+console.log(exampleObject['first' + 'Name']);
+
+const input = 'noProperty';
+// const input = prompt('Choose property:');
+console.log(exampleObject.input); // undefined, because of obj doesn't have input property
+console.log(exampleObject[input]);
+if (exampleObject[input]) {
+  console.log(exampleObject[input], 1111111);
+} else {
+  console.log(`obj doesn't have '${input}' property`);
+}
+
+exampleObject.location = 'London';
+exampleObject['isMarried'] = false;
+
+console.log(`${exampleObject.firstName} has ${exampleObject.friends.length} friends`);
+console.log(`${exampleObject['firstName']} has ${exampleObject['friends'].length} friends`);

@@ -50,3 +50,18 @@ if (!neighbours.includes('Germany')) {
 }
 neighbours[neighbours.indexOf('Sweden')] = 'Republic of Sweden';
 console.log(neighbours);
+
+
+// Introduction to Objects
+const myCountry = {
+  country: 'Ukraine',
+  capital: 'Kiev',
+  language: 'Ukrainian',
+  population: 44,
+  neighbours: ['nb1', 'nb2']
+};
+
+myCountry.population *= 2;
+myCountry['population'] /= 2;
+const myCountryInfo = `${myCountry.country} has ${myCountry.population} million people`;
+console.log(myCountryInfo);

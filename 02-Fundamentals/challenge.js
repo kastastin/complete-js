@@ -35,3 +35,30 @@ for (let bill of bills) {
   total.push(bill + tip);
 }
 console.log(bills, tips, total);
+
+
+// Coding Challenge #3
+const mark = {
+  fullName: 'Mark Miller',
+  height: 1.69,
+  weight: 78,
+  calcBMI: function() {
+    this.BMI = +(this.weight / this.height ** 2).toFixed(1);
+    return this.BMI;
+  }
+};
+
+const john = {
+  fullName: 'John Smith',
+  height: 1.95,
+  weight: 92,
+  calcBMI: function() {
+    this.BMI = +(this.weight / this.height ** 2).toFixed(1);
+    return this.BMI;
+  }
+};
+
+mark.calcBMI();
+john.calcBMI();
+console.log(mark.BMI, john.BMI);
+console.log(`Mark's BMI (${mark.BMI}) is ${mark.BMI > john.BMI ? 'more' : 'less'} than John's BMI (${john.BMI})`);

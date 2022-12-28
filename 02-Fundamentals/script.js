@@ -204,3 +204,32 @@ exampleObject['isMarried'] = false;
 
 console.log(`${exampleObject.firstName} has ${exampleObject.friends.length} friends`);
 console.log(`${exampleObject['firstName']} has ${exampleObject['friends'].length} friends`);
+
+
+// Object Methods
+const exampleObj = {
+  firstName: 'Tom',
+  birthYear: 2000,
+  hasDriversLicense: false,
+  calcAge: function(birthYear) {
+    return 2022 - birthYear;
+  },
+  calcAge2: function() {
+    return 2022 - this.birthYear;
+  },
+  calcAge3: function() {
+    this.age = 2022 - this.birthYear;
+    return this.age;
+  },
+  getSummary: function() {
+    const summary = `${this.firstName} ${this.hasDriversLicense ? "has" : "hasn't"} license`;
+    return summary;
+  }
+};
+
+console.log(exampleObj.calcAge(exampleObj.birthYear));
+console.log(exampleObj['calcAge'](exampleObj.birthYear));
+console.log(exampleObj.calcAge2());
+console.log(exampleObj.calcAge3());
+console.log(exampleObj.age);
+console.log(exampleObj.getSummary());

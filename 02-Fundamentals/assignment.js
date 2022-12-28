@@ -58,10 +58,31 @@ const myCountry = {
   capital: 'Kiev',
   language: 'Ukrainian',
   population: 44,
-  neighbours: ['nb1', 'nb2']
+  neighbours: ['nb1', 'nb2'],
+  // describe: function() {
+  //   const description = `${this.country} has ${this.population} million people`;
+  //   return description;
+  // }
+  // checkIsland: function() {
+  //   this.isIsland = !this.neighbours ? true : false;
+  // }
 };
 
 myCountry.population *= 2;
 myCountry['population'] /= 2;
 const myCountryInfo = `${myCountry.country} has ${myCountry.population} million people`;
 console.log(myCountryInfo);
+
+
+// Object Methods
+myCountry.describe = function() {
+  const description = `${this.country} has ${this.population} million people`;
+  return description;
+}
+console.log(myCountry.describe());
+
+myCountry.checkIsland = function() {
+  this.isIsland = !this.neighbours.length ? true : false;
+}
+myCountry.checkIsland();
+console.log(myCountry.isIsland);

@@ -39,3 +39,14 @@ for (let elem of populations) {
   percentages.push(percentageOfWorld3(elem));
 }
 console.log(percentages);
+
+
+// Basic Array Operations (Methods)
+const neighbours = ['nb1', 'nb2', 'Sweden'];
+neighbours.push('Utopia');
+neighbours.pop();
+if (!neighbours.includes('Germany')) {
+  console.log('Probably not a central European country');
+}
+neighbours[neighbours.indexOf('Sweden')] = 'Republic of Sweden';
+console.log(neighbours);

@@ -116,3 +116,52 @@ function calcAge5(...yearss) {
 }
 
 calcAge5(...years);
+
+
+// Basic Array Operations (Methods)
+const names = ['Bob', 'Nic'];
+
+const newLengthPush = names.push('Tom'); // 3
+console.log(names, newLengthPush);
+
+const newLengthUnshift = names.unshift('Jay'); // 4
+console.log(names, newLengthUnshift);
+
+const lastElement = names.pop(); // 'Tom'
+console.log(names, lastElement);
+
+const firstElement = names.shift(); // 'Jay'
+console.log(names, firstElement);
+
+function reverseArray(array, option) {
+  const reversedArray = [];
+  const arrayLength = array.length;
+
+  for (let i = 0; i < arrayLength; i++) {
+    if (option === 'pop') {
+      const lastElement = array.pop();
+      reversedArray.push(lastElement);
+    } else if (option === 'shift') {
+      const lastElement = array.shift();
+      reversedArray.unshift(lastElement);
+    } else {
+      console.log("Second argument have to be 'pop' or 'shift'");
+      return array;
+    }
+  }
+
+  array = reversedArray;
+  return array;
+}
+
+const testArray = [1, 2, 3, 4, 5];
+console.log(testArray);
+console.log(reverseArray(testArray, 'shift')); // [5, 4, 3, 2, 1]
+
+const indexElement = names.indexOf('Bob'); // 0
+const noElement = names.indexOf('noElement'); // -1
+console.log(names, indexElement, noElement);
+
+const isElementExist = names.includes('Bob'); // true
+const isElementExist2 = names.includes('noElement'); // false
+console.log(names, isElementExist, isElementExist2); // strict equality: includes ===

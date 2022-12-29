@@ -62,3 +62,30 @@ mark.calcBMI();
 john.calcBMI();
 console.log(mark.BMI, john.BMI);
 console.log(`Mark's BMI (${mark.BMI}) is ${mark.BMI > john.BMI ? 'more' : 'less'} than John's BMI (${john.BMI})`);
+
+
+// Coding Challenge #4
+const bills2 = [22, 295, 196, 440, 37, 105, 10, 1100, 86, 52];
+const tips2 = [];
+const total2 = [];
+
+for (let i = 0; i < bills2.length; i++) {
+  const tip = calcTip(bills2[i]);
+  tips2.push(tip);
+  total2.push(bills2[i] + tip);
+}
+console.log(bills2);
+console.log(tips2);
+console.log(total2);
+
+function calcAverage2(array) {
+  let sum = 0;
+  for (let i = 0; i < array.length; i++) {
+    sum += array[i];
+  }
+  const average = (sum / array.length).toFixed(2);
+  return average;
+}
+console.log(calcAverage2(bills2));
+console.log(calcAverage2(tips2));
+console.log(calcAverage2(total2));

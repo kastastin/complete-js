@@ -270,3 +270,31 @@ for (let i = 0; i <= 3; i++) {
     console.log(` for j (${j})`);
   }
 }
+
+
+// The while Loop
+let rep = 1;
+while (rep <= 3) {
+  console.log(rep);
+  rep++;
+}
+
+const getRandom = (min, max) => Math.trunc(Math.random() * max) + min;
+let dice = getRandom(1, 100000000);
+let noSix = 0;
+
+const startTime = new Date().getTime();
+while (dice !== 50000000) {
+  // console.log(`Dice: ${dice}`);
+  dice = getRandom(1, 100000000);
+  noSix++;
+}
+const endTime = new Date().getTime();
+console.log(`Not '6': ${noSix}`);
+console.log(`Time: ${(endTime - startTime) / 1000} sec`);
+
+let exampleDoWhile = 5;
+do {
+  exampleDoWhile++;
+} while (exampleDoWhile < 3);
+console.log(exampleDoWhile);

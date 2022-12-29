@@ -233,3 +233,40 @@ console.log(exampleObj.calcAge2());
 console.log(exampleObj.calcAge3());
 console.log(exampleObj.age);
 console.log(exampleObj.getSummary());
+
+
+// Iteration: The for Loop
+for (let rep = 1; rep <= 3; rep++) {
+  console.log(`Rep: ${rep}`);
+}
+
+
+// Looping Arrays, Breaking & Continuing
+const nums = [1, 2, 3, 'four', 5, true, 6];
+const numsTypes = [];
+
+for (let i = 0; i < nums.length; i++) {
+  if (typeof nums[i] === 'string') {
+    continue;
+  } else if (typeof nums[i] === 'boolean') {
+    break;
+  }
+  console.log(nums[i]);
+  // numsTypes[i] = typeof nums[i];
+  numsTypes.push(typeof nums[i]);
+}
+console.log(numsTypes);
+
+
+// Looping Backwards & Loops in Loops
+const numbers = [1, 2, 3];
+for (let i = numbers.length - 1; i >= 0; i--) {
+  console.log(numbers[i]);
+}
+
+for (let i = 0; i <= 3; i++) {
+  console.log(`--- for i (${i}) ---`);
+  for (let j = 0; j <= 2; j++) {
+    console.log(` for j (${j})`);
+  }
+}

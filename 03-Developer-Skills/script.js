@@ -18,7 +18,7 @@ const calcTempAmplitude = function (...temps) {
       return 'Every argument has to be an array';
     }
   }
-  
+
   const completeArray = Array.prototype.concat(...temps);
   const sorted = completeArray.sort((a, b) => a - b);
   return sorted[sorted.length - 1] - sorted[0];
@@ -27,3 +27,23 @@ const calcTempAmplitude = function (...temps) {
 // const tempAmplitude = calcTempAmplitude(tempsWithoutErrors);
 const tempAmplitude = calcTempAmplitude([1, 2], [3, 4]);
 console.log(`Amplitude: ${tempAmplitude}`);
+
+// Dubugging
+const measureKelvin = function () {
+  const measurement = {
+    type: 'temp',
+    unit: 'celsius',
+    value: +prompt('Degrees celsius:')
+  };
+
+  console.log(measurement.value);
+  console.warn(measurement.value);
+  console.error(measurement.value);
+  console.table(measurement);
+
+  debugger;
+  const kelvin = measurement.value + 273;
+  return kelvin;
+};
+
+console.log(measureKelvin());

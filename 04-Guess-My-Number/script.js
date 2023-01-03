@@ -1,5 +1,6 @@
 'use strict';
 // localStorage.clear();
+const body = document.querySelector('body');
 const randomNumberElement = document.querySelector('.number');
 const inputElement = document.querySelector('.guess');
 const messageElement = document.querySelector('.message');
@@ -24,9 +25,15 @@ const checkBtnHandler = function () {
     messageElement.textContent = 'Enter between 1 and 20!';
     inputElement.value = 0;
   } else if (input === randomNumber) {
+    body.style.backgroundColor = '#60b347';
+    randomNumberElement.style.width = '30rem';
     messageElement.textContent = '🥳 Correct Number!';
     randomNumberElement.textContent = randomNumber;
     nGames++;
+    attempt++;
+    inputElement.readOnly = true;
+    checkBtn.hidden = true;
+    checkBtn.removeEventListener('click', checkBtnHandler);
   } else if (input > randomNumber) {
     messageElement.textContent = '📈 Too high!';
     attempt++;

@@ -113,8 +113,8 @@ h1 {
   height: 3rem;
 }
 
-.label-score {
-  margin-bottom: 2rem;
+.label-worstAttempt {
+  margin: 1rem 0;
 }
 
 /* Chrome, Safari, Edge, Opera */

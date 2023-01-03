@@ -1,27 +1,50 @@
 'use strict';
-
-const guessElement = document.querySelector('.guess');
+// localStorage.clear();
+const randomNumberElement = document.querySelector('.number');
+const inputElement = document.querySelector('.guess');
 const messageElement = document.querySelector('.message');
 const checkBtn = document.querySelector('.check');
+const againBtn = document.querySelector('.again');
+const attemptElement = document.querySelector('.attempt');
+const worstAttemptElement = document.querySelector('.worstAttempt');
+const nGamesElement = document.querySelector('.nGames');
 
-const checkInput = function (input) {
-  if (+input < 1 || +input > 20) {
+const randomNumber = Math.trunc(Math.random() * 20) + 1;
+let attempt = 0;
+let worstAttempt = localStorage.getItem('worstAttempt') || 0;
+let nGames = localStorage.getItem('nGames') || 0;
+
+worstAttemptElement.textContent = localStorage.getItem('worstAttempt');
+nGamesElement.textContent = localStorage.getItem('nGames');
+
+const checkBtnHandler = function () {
+  const input = +inputElement.value;
+
+  if (input < 1 || input > 20) {
     messageElement.textContent = 'Enter between 1 and 20!';
-    guessElement.value = 0;
-    return 0;
+    inputElement.value = 0;
+  } else if (input === randomNumber) {
+    messageElement.textContent = '🥳 Correct Number!';
+    randomNumberElement.textContent = randomNumber;
+    nGames++;
+  } else if (input > randomNumber) {
+    messageElement.textContent = '📈 Too high!';
+    attempt++;
+  } else if (input < randomNumber) {
+    messageElement.textContent = '📉 Too low!';
+    attempt++;
   }
-  return input;
+
+  attemptElement.textContent = attempt;
+  worstAttempt = worstAttempt < attempt ? attempt : worstAttempt;
+  worstAttemptElement.textContent = worstAttempt;
+  localStorage.setItem('worstAttempt', worstAttempt);
+  nGamesElement.textContent = nGames;
+  localStorage.setItem('nGames', nGames);
 };
 
-const guessBtnHandler = function () {
-  messageElement.textContent = '🥳 Correct Number!';
-  const input = guessElement.value;
-  const guess = checkInput(input);
-  console.log(guess, typeof guess);
-};
-
-// <-- Guess Button Event Listener -->
-checkBtn.addEventListener('click', guessBtnHandler);
+// <-- Check Button Event Listener -->
+checkBtn.addEventListener('click', checkBtnHandler);
 
 const inputHandler = function (e) {
   let input = e.target.value;
@@ -31,4 +54,9 @@ const inputHandler = function (e) {
 };
 
 // <-- Input Event Listener -->
-guessElement.addEventListener('input', inputHandler);
+inputElement.addEventListener('input', inputHandler);
+
+// <-- Again Button Event Listener -->
+againBtn.addEventListener('click', function () {
+  location.reload();
+});

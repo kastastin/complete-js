@@ -1,5 +1,5 @@
 'use strict';
-// localStorage.clear();
+
 const body = document.querySelector('body');
 const randomNumberElement = document.querySelector('.number');
 const inputElement = document.querySelector('.guess');
@@ -15,30 +15,35 @@ let attempt = 0;
 let worstAttempt = localStorage.getItem('worstAttempt') || 0;
 let nGames = localStorage.getItem('nGames') || 0;
 
+// <-- Local Storage -->
 worstAttemptElement.textContent = localStorage.getItem('worstAttempt');
 nGamesElement.textContent = localStorage.getItem('nGames');
 
+const displayMessage = function (message) {
+  messageElement.textContent = message;
+};
+
+// <-- Game Logic -->
 const checkBtnHandler = function () {
   const input = +inputElement.value;
 
   if (input < 1 || input > 20) {
-    messageElement.textContent = 'Enter between 1 and 20!';
     inputElement.value = 0;
+    displayMessage('Enter between 1 and 20!');
   } else if (input === randomNumber) {
     body.style.backgroundColor = '#60b347';
     randomNumberElement.style.width = '30rem';
-    messageElement.textContent = '🥳 Correct Number!';
+    displayMessage('🥳 Correct Number!');
     randomNumberElement.textContent = randomNumber;
     nGames++;
     attempt++;
     inputElement.readOnly = true;
     checkBtn.hidden = true;
     checkBtn.removeEventListener('click', checkBtnHandler);
-  } else if (input > randomNumber) {
-    messageElement.textContent = '📈 Too high!';
-    attempt++;
-  } else if (input < randomNumber) {
-    messageElement.textContent = '📉 Too low!';
+  } else if (input !== randomNumber) {
+    input > randomNumber
+      ? displayMessage('📈 Too high!')
+      : displayMessage('📉 Too low!');
     attempt++;
   }
 

@@ -99,6 +99,21 @@ main {
   font-size: 3.5rem;
 }
 
+.roll-count {
+  width: 17%;
+  position: absolute;
+  bottom: 2.5rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 1rem;
+  font-size: 1.7rem;
+}
+
+.roll-count .current-label {
+  margin: 0;
+}
+
 /* ABSOLUTE POSITIONED ELEMENTS */
 .btn {
   position: absolute;

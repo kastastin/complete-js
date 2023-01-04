@@ -41,9 +41,7 @@ const checkBtnHandler = function () {
     checkBtn.hidden = true;
     checkBtn.removeEventListener('click', checkBtnHandler);
   } else if (input !== randomNumber) {
-    input > randomNumber
-      ? displayMessage('📈 Too high!')
-      : displayMessage('📉 Too low!');
+    displayMessage(input > randomNumber ? '📈 Too high!' : '📉 Too low!');
     attempt++;
   }
 

@@ -110,7 +110,41 @@ main {
   font-size: 1.7rem;
 }
 
-.roll-count .current-label {
+.roll-count
+.current-label {
+  margin: 0;
+}
+
+.turn {
+  width: 100%;
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  /* align-items: space-between; */
+}
+
+.turn
+.current {
+  width: 10%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 1rem;
+  font-size: 1.7rem;
+}
+
+.turn
+.current:first-child {
+  border-radius: 9px 0;
+}
+
+.turn
+.current:last-child {
+  border-radius: 0 9px;
+}
+
+.turn
+.current-label {
   margin: 0;
 }
 

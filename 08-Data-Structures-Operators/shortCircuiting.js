@@ -55,12 +55,12 @@ console.log(true || 0); // true
 console.log(undefined || null); // null -> no short circuiting
 
 // Example || Operator
-const guest11 = restaurant.numGuests ? restaurant.numGuests : 10;
-console.log(guest11); // 10
+// const guest11 = restaurant.numGuests ? restaurant.numGuests : 10;
+// console.log(guest11); // 10
 
-restaurant.numGuests = 5;
-const guests2 = restaurant.numGuests || 10;
-console.log(guests2); // 5
+// restaurant.numGuests = 5;
+// const guests2 = restaurant.numGuests || 10;
+// console.log(guests2); // 5
 
 // Operator && return last true value or first false value if all false
 console.log('-- && --');
@@ -80,3 +80,10 @@ if (restaurant.orderPizza) {
 // if method orderPizza exists -> call the method
 restaurant.orderPizza &&
   restaurant.orderPizza('mushrooms', 'cheese', 'spinach');
+
+// <-- Nullish Coalescing Operator (??) -->
+
+// Nullish: null and undefined (NOT include 0 or '')
+// Only if restaurant.numGuests is null or undefined -> 10
+const guestCorrect = restaurant.numGuests ?? 10;
+console.log(guestCorrect);

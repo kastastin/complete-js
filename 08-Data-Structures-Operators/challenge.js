@@ -82,5 +82,35 @@ const chooseWinner = function (odds) {
 
   return game[winnerTeam];
 };
-
 console.log(`The team '${chooseWinner(game.odds)}' is more likely to win`);
+console.log('----------');
+
+// <-- Coding Challenge #2 -->
+
+// Task 1
+for (const [i, player] of game.scored.entries())
+  console.log(`Goal ${i + 1}: ${player}`);
+
+// Task 2
+const getAverageOdd = function () {
+  const odds = Object.values(game.odds);
+  const averageOdd = odds.reduce((acc, curr) => acc + curr, 0) / odds.length;
+  return averageOdd.toFixed(2);
+};
+console.log(`Average Odd: ${getAverageOdd()}`);
+
+// Task 3
+for (const [team, odd] of Object.entries(game.odds)) {
+  // console.log(`Odd of ${game[team] ?? 'draw'}: ${odd}\n`);
+  const isDraw = team === 'draw' ? 'draw' : `victory ${game[team]}`;
+  console.log(`Odd of ${isDraw}: ${odd}`);
+}
+
+// Task 4 BONUS
+const scorers = game.scored.reduce((acc, curr) => {
+  return {
+    ...acc,
+    [curr]: (acc[curr] || 0) + 1
+  };
+}, {});
+console.log(scorers);

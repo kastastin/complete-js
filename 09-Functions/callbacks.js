@@ -29,3 +29,20 @@ document.body.addEventListener('click', high5);
 
 // Example
 [1, 2, 3].forEach((item) => console.log(item)); // 1 2 3
+
+// <-- Functions Returning Functions -->
+console.clear();
+
+const greet = function (greeting) {
+  return function (name) {
+    console.log(`${greeting} ${name}`);
+  };
+};
+
+const greeterHey = greet('Hey');
+greeterHey('Tom'); // Hey Tom
+
+greet('Hello')('Bob'); // Hello Bob
+
+const greetArrow = (greeting) => (name) => console.log(`${greeting} ${name}`);
+greetArrow('Hi')('John');

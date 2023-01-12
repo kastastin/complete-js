@@ -151,3 +151,34 @@ for (const [time, event] of gameEvents)
   console.log(
     `${time <= 45 ? '[FIRST HALF]' : '[SECOND HALF]'} ${time}: ${event}`
   );
+
+// <-- Coding Challenge #4 -->
+console.clear();
+
+/* TEST DATA
+underscore_case
+first_name
+Some_variable
+calculate_AGE
+delayed_departure
+*/
+
+document.body.append(document.createElement('textarea'));
+document.body.append(document.createElement('button'));
+
+const buttonHandler = function () {
+  const input = document.querySelector('textarea').value;
+  const variables = input.toLowerCase().trim().split('\n');
+
+  for (const [i, variable] of variables.entries()) {
+    const [first, second] = variable.split('_');
+    const newVariable = `${first}${second.replace(
+      second[0],
+      second[0].toUpperCase()
+    )}`;
+
+    console.log(`${newVariable.padEnd(20)}${'✅'.repeat(i + 1)}`);
+  }
+};
+
+document.querySelector('button').addEventListener('click', buttonHandler);

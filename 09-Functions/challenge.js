@@ -35,3 +35,14 @@ document
 // BONUS
 poll.displayResults.call({ answers: [5, 2, 3] }); // [5, 2, 3]
 poll.displayResults.call({ answers: [5, 2, 3] }, 'string'); // Poll requests are 5, 2, 3
+
+// <-- Coding Challenge #2 -->
+
+(function () {
+  const header = document.querySelector('h1');
+  header.style.color = 'red';
+
+  document.body.addEventListener('click', function () {
+    header.style.color = 'blue';
+  });
+})();

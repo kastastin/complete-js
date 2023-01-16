@@ -1,13 +1,5 @@
 'use strict';
 
-const currencies = new Map([
-  ['USD', 'United States dollar'],
-  ['EUR', 'Euro'],
-  ['GBP', 'Pound sterling']
-]);
-
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
-
 const arr = ['a', 'b', 'c', 'd', 'e'];
 
 // Slice
@@ -32,3 +24,16 @@ console.log(array); // [5, 4, 3, 2, 1]
 const anotherArray = [7, 6];
 console.log(anotherArray.concat(array)); // [7, 6, 5, 4, 3, 2, 1]
 console.log([...anotherArray, ...array]); // [7, 6, 5, 4, 3, 2, 1]
+
+// <-- The new 'at' method -->
+
+const testArr = [1, 2, 3];
+
+console.log(testArr[0]); // 1
+console.log(testArr.at(0)); // 1
+
+// getting last array or string element
+console.log(testArr[testArr.length - 1]); // 3
+console.log(testArr.slice(-1)[0]); // 3
+console.log(testArr.at(-1)); // 3
+console.log('Tom'.at(-1)); // m

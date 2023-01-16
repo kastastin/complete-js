@@ -37,3 +37,16 @@ console.log(testArr[testArr.length - 1]); // 3
 console.log(testArr.slice(-1)[0]); // 3
 console.log(testArr.at(-1)); // 3
 console.log('Tom'.at(-1)); // m
+
+// <-- Looping Arrays: forEach -->
+
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+// forEach does not have break and continue
+movements.forEach(function (movement, index, array) {
+  if (movement > 0) {
+    console.log(`${index + 1}. Your deposit: ${movement}`);
+  } else {
+    console.log(`${index + 1}. Your withdraw: ${Math.abs(movement)}`);
+  }
+});

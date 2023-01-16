@@ -50,3 +50,21 @@ movements.forEach(function (movement, index, array) {
     console.log(`${index + 1}. Your withdraw: ${Math.abs(movement)}`);
   }
 });
+
+// <-- forEach with Maps and Sets -->
+
+const currencies = new Map([
+  ['USD', 'United States dollar'],
+  ['EUR', 'Euro'],
+  ['GBP', 'Pound sterling']
+]);
+
+currencies.forEach(function (value, key, map) {
+  console.log(`${key}: ${value}`);
+});
+
+const currenciesUnique = new Set(['USD', 'GBP', 'USD', 'EUR', 'EUR']);
+// _ means a throwaway variable (unnecessary)
+currenciesUnique.forEach(function (value, _, set) {
+  console.log(`${value}: ${value}`);
+});

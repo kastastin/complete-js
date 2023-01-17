@@ -13,3 +13,17 @@ const checkDogs = function (firstArr, secondArr) {
   });
 };
 checkDogs(juliaAges, kateAges);
+
+// <-- Coding Chalenge #2 -->
+
+const calcAverageHumanAge = function (dogAges) {
+  const humanAges = dogAges.map((age) => (age <= 2 ? age * 2 : age * 4 + 16));
+  const adultHumanAges = humanAges.filter((age) => age >= 18);
+  const averageAdultHumanAge =
+    adultHumanAges.reduce((acc, age) => acc + age, 0) / adultHumanAges.length;
+
+  console.log(averageAdultHumanAge);
+  return averageAdultHumanAge;
+};
+
+calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]); // 220

@@ -14,3 +14,23 @@ const arrDescriptions = arr.map((elem, index) => {
   return `elem ${index}: ${elem} (${isPositive})`;
 });
 console.log(arrDescriptions);
+
+// <-- The filter Method -->
+
+const movements = [200, -200, 430, -400, 100];
+
+const depositFor = [];
+for (const movement of movements) {
+  if (movement > 0) {
+    depositFor.push(movement);
+  }
+}
+console.log(depositFor); // [200, 430, 100]
+
+const deposits = movements.filter((movement) => movement > 0);
+console.log(deposits); // [200, 430, 100]
+
+const withdrawals = movements.filter(function (movement) {
+  return movement < 0;
+});
+console.log(withdrawals); // [-200, -400]

@@ -34,3 +34,30 @@ const withdrawals = movements.filter(function (movement) {
   return movement < 0;
 });
 console.log(withdrawals); // [-200, -400]
+
+// <-- The reduce Method -->
+console.clear();
+console.log(movements); // [200, -200, 430, -400, 100]
+
+// accumulator -> SNOWBALL
+const balance = movements.reduce(function (acc, curr, index, arr) {
+  console.log(`Iteration ${index}: ${acc}`);
+  return acc + curr;
+}, 0);
+console.log(balance); // 130
+
+let balanceFor = 0;
+for (const movement of movements) {
+  balanceFor += movement;
+}
+console.log(balanceFor); // 130
+
+const balanceArrow = movements.reduce((acc, curr) => acc + curr, 0);
+console.log(balanceArrow); // 130
+
+// Max value (reduce)
+const maxMovement = movements.reduce((acc, curr) => {
+  if (acc > curr) return acc;
+  else return curr;
+}, movements[0]);
+console.log(maxMovement); // 430

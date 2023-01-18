@@ -31,6 +31,12 @@ nav {
   font-weight: 500;
 }
 
+.welcome span {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #ffb003;
+}
+
 .logo {
   height: 5.25rem;
 }
@@ -90,7 +96,7 @@ nav {
   gap: 2rem;
 
   /* NOTE This creates the fade in/out anumation */
-  /* opacity: 0; */
+  opacity: 0;
   transition: all 1s;
 }
 

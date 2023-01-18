@@ -73,42 +73,67 @@ const displayMovements = function (movements) {
     containerMovements.insertAdjacentHTML('afterbegin', html);
   });
 };
-displayMovements(account1.movements);
 
 const calcDisplayBalance = function (movements) {
   const balance = movements.reduce((acc, curr) => acc + curr, 0);
   labelBalance.textContent = `${balance}€`;
 };
-calcDisplayBalance(account1.movements);
 
-const calcDisplaySummary = function (movements) {
-  const incomes = movements
+const calcDisplaySummary = function (acc) {
+  const incomes = acc.movements
     .filter((movement) => movement > 0)
     .reduce((acc, movement) => acc + movement, 0);
   labelSumIn.textContent = `${incomes}€`;
 
-  const out = movements
+  const out = acc.movements
     .filter((movement) => movement < 0)
     .reduce((acc, movement) => acc + movement, 0);
   labelSumOut.textContent = `${Math.abs(out)}€`;
 
-  const interest = movements
+  const interest = acc.movements
     .filter((movement) => movement > 0)
-    .map((movement) => (movement * 1.2) / 100)
+    .map((movement) => (movement * acc.interestRate) / 100)
     .filter((movement) => movement >= 1)
     .reduce((acc, movement) => acc + movement, 0);
   labelSumInterest.textContent = `${interest.toFixed(2)}€`;
 };
-calcDisplaySummary(account1.movements);
 
 const createUsernames = function (accounts) {
   accounts.forEach(function (account) {
-    account.username = account.owner
-      .toUpperCase()
-      .trim()
-      .split(' ')
-      .map((word) => word[0])
-      .join('.');
+    account.username =
+      account.owner
+        .toUpperCase()
+        .trim()
+        .split(' ')
+        .map((word) => word[0])
+        .join('.') + '.';
   });
 };
 createUsernames(accounts);
+
+// <-- Event Handler -->
+let currentAccount;
+btnLogin.addEventListener('click', function (event) {
+  event.preventDefault();
+
+  currentAccount = accounts.find(
+    (account) => account.username === inputLoginUsername.value
+  );
+
+  if (currentAccount?.pin === +inputLoginPin.value) {
+    // Display UI and message
+    labelWelcome.innerHTML = `
+      Welcome back, <span>${currentAccount.owner.split(' ')[0]}</span>
+    `;
+    containerApp.style.opacity = 1;
+
+    // Clear input fields
+    inputLoginUsername.value = inputLoginPin.value = '';
+    inputLoginPin.blur();
+
+    // Display movements, balance, summary
+    displayMovements(currentAccount.movements);
+    calcDisplayBalance(currentAccount.movements);
+    calcDisplaySummary(currentAccount);
+  }
+});

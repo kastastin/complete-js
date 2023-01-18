@@ -72,3 +72,19 @@ const totalDepositsUSD = movements
   .reduce((acc, movement) => acc + movement, 0);
 
 console.log(totalDepositsUSD); // 803.0000000000001
+
+// <-- The find Method -->
+console.clear();
+console.log(movements); // [200, -200, 430, -400, 100]
+
+// find returns firrst element in the array that satisfies condition
+const firstWithdrawal = movements.find((movement) => movement < 0);
+console.log(firstWithdrawal); // -200
+
+const workers = [
+  { name: 'Bob', age: 29 },
+  { name: 'Tom', age: 42 },
+  { name: 'Kim', age: 23 }
+];
+const tom = workers.find((worker) => worker.name === 'Tom');
+console.log(tom); // {name: 'Tom', age: 42}

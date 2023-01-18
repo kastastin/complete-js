@@ -66,7 +66,7 @@ const displayMovements = function (movements) {
       <div class="movements__row">
         <div class="movements__type movements__type--${type}">2 deposit</div>
         <div class="movements__date">${index + 1} ${type}</div>
-        <div class="movements__value">${movement}</div>
+        <div class="movements__value">${movement}€</div>
       </div>
     `;
 
@@ -77,9 +77,29 @@ displayMovements(account1.movements);
 
 const calcDisplayBalance = function (movements) {
   const balance = movements.reduce((acc, curr) => acc + curr, 0);
-  labelBalance.textContent = `${balance} €`;
+  labelBalance.textContent = `${balance}€`;
 };
 calcDisplayBalance(account1.movements);
+
+const calcDisplaySummary = function (movements) {
+  const incomes = movements
+    .filter((movement) => movement > 0)
+    .reduce((acc, movement) => acc + movement, 0);
+  labelSumIn.textContent = `${incomes}€`;
+
+  const out = movements
+    .filter((movement) => movement < 0)
+    .reduce((acc, movement) => acc + movement, 0);
+  labelSumOut.textContent = `${Math.abs(out)}€`;
+
+  const interest = movements
+    .filter((movement) => movement > 0)
+    .map((movement) => (movement * 1.2) / 100)
+    .filter((movement) => movement >= 1)
+    .reduce((acc, movement) => acc + movement, 0);
+  labelSumInterest.textContent = `${interest.toFixed(2)}€`;
+};
+calcDisplaySummary(account1.movements);
 
 const createUsernames = function (accounts) {
   accounts.forEach(function (account) {

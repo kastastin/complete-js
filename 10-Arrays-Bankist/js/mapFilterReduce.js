@@ -61,3 +61,14 @@ const maxMovement = movements.reduce((acc, curr) => {
   else return curr;
 }, movements[0]);
 console.log(maxMovement); // 430
+
+// <-- The Magic of Chaining Methods -->
+
+// PIPELINE
+const euroToUSD = 1.1;
+const totalDepositsUSD = movements
+  .filter((movement) => movement > 0)
+  .map((movement) => movement * euroToUSD)
+  .reduce((acc, movement) => acc + movement, 0);
+
+console.log(totalDepositsUSD); // 803.0000000000001

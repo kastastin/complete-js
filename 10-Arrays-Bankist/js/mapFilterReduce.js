@@ -142,3 +142,42 @@ const overalBalanceFlatMap = accounts
   .flatMap((account) => account.movements) // only 1 level deep
   .reduce((acc, movement) => acc + movement, 0);
 console.log(overalBalanceFlatMap); // 320
+
+// <-- Sorting Arrays -->
+console.clear();
+
+const owners = ['Tom', 'Bob', 'Kim'];
+// console.log(owners.sort()); // ['Bob', 'Kim', 'Tom']
+// console.log(owners); // ['Bob', 'Kim', 'Tom']
+const sortedOwners = owners.slice().sort();
+console.log(sortedOwners); // ['Bob', 'Kim', 'Tom']
+console.log(owners); // ['Tom', 'Bob', 'Kim']
+
+const numbers = [10, 7, -4, 8, -11];
+const sortedNumbers = numbers.sort((a, b) => {
+  // return < 0, A, B (keep order)
+  // return > 0, B, A (switch order)
+  // return a + b;
+  if (a > b) return 1;
+  if (b > a) return -1;
+});
+console.log(sortedNumbers);
+
+const ascendingSortedNumbers = numbers.slice().sort((a, b) => a - b); // [-11, -4, 7, 8, 10]
+const descendingSortedNumbers = numbers.slice().sort((a, b) => b - a); // [10, 8, 7, -4, -11]
+console.log(ascendingSortedNumbers, descendingSortedNumbers);
+
+const items = [
+  { name: 'Edward', value: 21 },
+  { name: 'Sharpe', value: 37 },
+  { name: 'And', value: 45 },
+  { name: 'The', value: -12 },
+  { name: 'Magnetic' },
+  { name: 'Zeros', value: 37 }
+];
+const sortedItems = items.sort(function (a, b) {
+  if (a.name > b.name) return -1;
+  if (a.name < b.name) return 1;
+  return 0;
+});
+console.log(sortedItems); // from 'Z' to 'A'

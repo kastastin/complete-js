@@ -107,3 +107,38 @@ const deposit = (movement) => movement > 0;
 console.log(movements.some(deposit)); // true
 console.log(movements.every(deposit)); // false
 console.log(movements.filter(deposit)); // [200, 430, 100]
+
+// <-- flat and flatMap -->
+console.clear();
+
+const array = [[1, 2], [3, 4], 5];
+console.log(array.flat()); // [1, 2, 3, 4, 5]
+
+const deepArray = [[1, [2, 3]], [[4, 5], 6], 7];
+console.log(deepArray.flat()); // [1, [2, 3], [4, 5], 6, 7]
+console.log(deepArray.flat(2)); // [1, 2, 3, 4, 5, 6, 7]
+
+const accounts = [
+  { name: 'Tom', movements: [40, 10, 50] },
+  { name: 'Bob', movements: [70, 20, 30] },
+  { name: 'Kim', movements: [20, 70, 10] }
+];
+
+// const accountMovements = accounts.map((account) => account.movements);
+// console.log(accountMovements); // [[40, 10, 50], [70, 20, 30], [20, 70, 10]]
+// const allMovements = accountMovements.flat();
+// console.log(allMovements); // [40, 10, 50, 70, 20, 30, 20, 70, 10]
+// const overalBalance = allMovements.reduce((acc, movement) => acc + movement, 0);
+// console.log(overalBalance); // 320
+
+const overalBalance = accounts
+  .map((account) => account.movements)
+  .flat()
+  .reduce((acc, movement) => acc + movement, 0);
+console.log(overalBalance); // 320
+
+// flatMap method combines map and flat methods into one method (better for performance)
+const overalBalanceFlatMap = accounts
+  .flatMap((account) => account.movements) // only 1 level deep
+  .reduce((acc, movement) => acc + movement, 0);
+console.log(overalBalanceFlatMap); // 320

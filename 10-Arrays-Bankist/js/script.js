@@ -74,9 +74,9 @@ const displayMovements = function (movements) {
   });
 };
 
-const calcDisplayBalance = function (movements) {
-  const balance = movements.reduce((acc, curr) => acc + curr, 0);
-  labelBalance.textContent = `${balance}€`;
+const calcDisplayBalance = function (account) {
+  account.balance = account.movements.reduce((acc, curr) => acc + curr, 0);
+  labelBalance.textContent = `${account.balance}€`;
 };
 
 const calcDisplaySummary = function (acc) {
@@ -111,7 +111,18 @@ const createUsernames = function (accounts) {
 };
 createUsernames(accounts);
 
-// <-- Event Handler -->
+const updateUI = function (account) {
+  displayMovements(account.movements);
+  calcDisplayBalance(account);
+  calcDisplaySummary(account);
+};
+
+const clearInputFields = function (firstInput, secondInput) {
+  firstInput.value = secondInput.value = '';
+  secondInput.blur();
+};
+
+// <-- Event Handlers -->
 let currentAccount;
 btnLogin.addEventListener('click', function (event) {
   event.preventDefault();
@@ -126,14 +137,28 @@ btnLogin.addEventListener('click', function (event) {
       Welcome back, <span>${currentAccount.owner.split(' ')[0]}</span>
     `;
     containerApp.style.opacity = 1;
+    clearInputFields(inputLoginUsername, inputLoginPin);
+    updateUI(currentAccount);
+  }
+});
 
-    // Clear input fields
-    inputLoginUsername.value = inputLoginPin.value = '';
-    inputLoginPin.blur();
+btnTransfer.addEventListener('click', function (event) {
+  event.preventDefault();
+  clearInputFields(inputTransferTo, inputTransferAmount);
 
-    // Display movements, balance, summary
-    displayMovements(currentAccount.movements);
-    calcDisplayBalance(currentAccount.movements);
-    calcDisplaySummary(currentAccount);
+  const amount = +inputTransferAmount.value;
+  const receiverAccount = accounts.find(
+    (account) => account.username === inputTransferTo.value
+  );
+
+  if (
+    amount > 0 &&
+    receiverAccount &&
+    currentAccount.balance >= amount &&
+    receiverAccount?.username !== currentAccount.username
+  ) {
+    currentAccount.movements.push(-amount);
+    receiverAccount.movements.push(amount);
+    updateUI(currentAccount);
   }
 });

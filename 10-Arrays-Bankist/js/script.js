@@ -118,6 +118,7 @@ const updateUI = function (account) {
 };
 
 const clearInputFields = function (firstInput, secondInput) {
+  secondInput ||= firstInput;
   firstInput.value = secondInput.value = '';
   secondInput.blur();
 };
@@ -161,6 +162,20 @@ btnTransfer.addEventListener('click', function (event) {
     receiverAccount.movements.push(amount);
     updateUI(currentAccount);
   }
+});
+
+btnLoan.addEventListener('click', function (event) {
+  event.preventDefault();
+
+  const amount = +inputLoanAmount.value;
+  if (
+    amount > 0 &&
+    currentAccount.movements.some((movement) => movement >= amount * 0.1)
+  ) {
+    currentAccount.movements.push(amount);
+    updateUI(currentAccount);
+  }
+  clearInputFields(inputLoanAmount);
 });
 
 btnClose.addEventListener('click', function (event) {

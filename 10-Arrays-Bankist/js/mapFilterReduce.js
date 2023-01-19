@@ -88,3 +88,22 @@ const workers = [
 ];
 const tom = workers.find((worker) => worker.name === 'Tom');
 console.log(tom); // {name: 'Tom', age: 42}
+
+// <-- some and every -->
+console.clear();
+console.log(movements); // [200, -200, 430, -400, 100]
+
+// equality
+console.log(movements.includes(-200)); // true
+
+// some: condition
+console.log(movements.some((movement) => movement > 5000)); // false
+
+// every: condition
+console.log(movements.every((movement) => movement < 1000)); // true
+
+// Separate callback
+const deposit = (movement) => movement > 0;
+console.log(movements.some(deposit)); // true
+console.log(movements.every(deposit)); // false
+console.log(movements.filter(deposit)); // [200, 430, 100]

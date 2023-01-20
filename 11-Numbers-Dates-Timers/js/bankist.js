@@ -80,7 +80,7 @@ const displayMovements = function (movements, sort = false) {
       <div class="movements__row">
         <div class="movements__type movements__type--${type}">2 deposit</div>
         <div class="movements__date">${index + 1} ${type}</div>
-        <div class="movements__value">${movement}€</div>
+        <div class="movements__value">${movement.toFixed(2)}€</div>
       </div>
     `;
 
@@ -90,19 +90,19 @@ const displayMovements = function (movements, sort = false) {
 
 const calcDisplayBalance = function (account) {
   account.balance = account.movements.reduce((acc, curr) => acc + curr, 0);
-  labelBalance.textContent = `${account.balance}€`;
+  labelBalance.textContent = `${account.balance.toFixed(2)}€`;
 };
 
 const calcDisplaySummary = function (acc) {
   const incomes = acc.movements
     .filter((movement) => movement > 0)
     .reduce((acc, movement) => acc + movement, 0);
-  labelSumIn.textContent = `${incomes}€`;
+  labelSumIn.textContent = `${incomes.toFixed(2)}€`;
 
   const out = acc.movements
     .filter((movement) => movement < 0)
     .reduce((acc, movement) => acc + movement, 0);
-  labelSumOut.textContent = `${Math.abs(out)}€`;
+  labelSumOut.textContent = `${Math.abs(out).toFixed(2)}€`;
 
   const interest = acc.movements
     .filter((movement) => movement > 0)
@@ -181,7 +181,7 @@ btnTransfer.addEventListener('click', function (event) {
 btnLoan.addEventListener('click', function (event) {
   event.preventDefault();
 
-  const amount = +inputLoanAmount.value;
+  const amount = Math.floor(inputLoanAmount.value);
   if (
     amount > 0 &&
     currentAccount.movements.some((movement) => movement >= amount * 0.1)

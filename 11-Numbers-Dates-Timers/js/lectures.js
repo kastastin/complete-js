@@ -92,3 +92,30 @@ console.log(PI); // 3.1415
 
 console.log(Number('230_000')); // NaN
 console.log(Number.parseInt('230_000')); // 230
+
+// <-- Working with BigInt -->
+console.clear();
+
+console.log(2 ** 53 - 1); // 9007199254740991
+console.log(Number.MAX_SAFE_INTEGER); // 9007199254740991
+
+console.log(4792832842984928329328394921); // 4.792832842984928e+27
+console.log(4792832842984928329328394921n); // 4792832842984928329328394921n
+console.log(BigInt(4792832842984928329328394921)); // 4792832842984928128844955648n (use with small)
+
+// Operations
+console.log(10000n + 10000n); // 20000n
+const huge = 2049384934830304348n;
+const num = 23;
+// console.log(huge * num); // TypeError: Cannot mix BigInt and other types, use explicit conversions
+console.log(huge * BigInt(num)); // 47135853501097000004n
+
+console.log(20n > 15); // true
+console.log(20n === 20); // false
+console.log(20n == 20); // true
+console.log(20n == '20'); // true
+console.log(typeof 20n); // bigint
+
+// Divisions
+console.log(10n / 3n); // 3n
+console.log(10 / 3); // 3.3333333333333335

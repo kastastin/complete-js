@@ -147,3 +147,14 @@ console.log(future.toISOString()); // 2037-11-19T13:23:05.000Z
 console.log(future.getTime()); // 2142249785000
 console.log(new Date(2142249785000)); // Thu Nov 19 2037 15:23:05 GMT+0200
 console.log(Date.now()); // 1674388056979
+
+// <-- Operations with Dates -->
+console.clear();
+
+const futureDate = new Date(2037, 10, 19, 15, 23);
+console.log(Number(futureDate)); // 2142249780000
+
+const calcDaysPassed = (date1, date2) =>
+  Math.abs((date2 - date1) / (1000 * 60 * 60 * 24));
+const days1 = calcDaysPassed(new Date(2037, 3, 14), new Date(2037, 3, 24));
+console.log(days1); // 10

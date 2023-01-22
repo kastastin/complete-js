@@ -119,3 +119,31 @@ console.log(typeof 20n); // bigint
 // Divisions
 console.log(10n / 3n); // 3n
 console.log(10 / 3); // 3.3333333333333335
+
+// <-- Creating Dates -->
+console.clear();
+
+console.log(new Date()); // Sun Jan 22 2023 13:16:54 GMT+0200 (Eastern European Standard Time)
+console.log(new Date('Jan 22 2023 13:16:54'));
+console.log(new Date('December 24 2015')); // Thu Dec 24 2015 00:00:00 GMT+0200
+console.log(new Date('2019-11-18T21:31:17.178Z')); // Mon Nov 18 2019 23:31:17 GMT+0200
+console.log(new Date(2037, 10, 19, 15, 23, 5)); // Thu Nov 19 2037 15:23:05 GMT+0200
+console.log(new Date(2037, 10, 33)); // Thu Dec 03 2037 00:00:00 GMT+0200
+
+console.log(new Date(0)); // Thu Jan 01 1970 03:00:00 GMT+0300
+console.log(new Date(3 * 24 * 60 * 60 * 1000)); // Sun Jan 04 1970 03:00:00 GMT+0300
+
+// Working with dates
+const future = new Date(2037, 10, 19, 15, 23, 5);
+future.setFullYear(2040);
+console.log(future.getFullYear()); // 2040
+console.log(future.getMonth()); // 10
+console.log(future.getDate()); // 19
+console.log(future.getDay()); // 4
+console.log(future.getHours()); // 15
+console.log(future.getMinutes()); // 23
+console.log(future.getSeconds()); // 5
+console.log(future.toISOString()); // 2037-11-19T13:23:05.000Z
+console.log(future.getTime()); // 2142249785000
+console.log(new Date(2142249785000)); // Thu Nov 19 2037 15:23:05 GMT+0200
+console.log(Date.now()); // 1674388056979

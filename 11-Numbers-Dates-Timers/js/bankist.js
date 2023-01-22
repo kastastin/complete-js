@@ -69,17 +69,28 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
-const displayMovements = function (movements, sort = false) {
+const displayMovements = function (account, sort = false) {
   containerMovements.innerHTML = '';
 
-  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+  const movs = sort
+    ? account.movements.slice().sort((a, b) => a - b)
+    : account.movements;
 
   movs.forEach(function (movement, index) {
     const type = movement > 0 ? 'deposit' : 'withdrawal';
+    const date = new Date(account.movementsDates[index]);
+    const day = `${date.getDate()}`.padStart(2, 0);
+    const month = `${date.getMonth() + 1}`.padStart(2, 0);
+    const year = date.getFullYear();
+    const displayDate = `${day}/${month}/${year}`;
+
     const html = `
       <div class="movements__row">
-        <div class="movements__type movements__type--${type}">2 deposit</div>
-        <div class="movements__date">${index + 1} ${type}</div>
+        <div class="movements__type movements__type--${type}">${
+      index + 1
+    } ${type}</div>
+        
+        <div class="movements__date">${displayDate}</div>
         <div class="movements__value">${movement.toFixed(2)}€</div>
       </div>
     `;
@@ -126,7 +137,7 @@ const createUsernames = function (accounts) {
 createUsernames(accounts);
 
 const updateUI = function (account) {
-  displayMovements(account.movements);
+  displayMovements(account);
   calcDisplayBalance(account);
   calcDisplaySummary(account);
 };
@@ -139,6 +150,14 @@ const clearInputFields = function (firstInput, secondInput) {
 
 // <-- Event Handlers -->
 let currentAccount;
+
+// Fake always logged in
+currentAccount = account1;
+updateUI(currentAccount);
+containerApp.style.opacity = 1;
+
+// day/month/year
+
 btnLogin.addEventListener('click', function (event) {
   event.preventDefault();
 
@@ -152,6 +171,16 @@ btnLogin.addEventListener('click', function (event) {
       Welcome back, <span>${currentAccount.owner.split(' ')[0]}</span>
     `;
     containerApp.style.opacity = 1;
+
+    // Create current date and time
+    const now = new Date();
+    const day = `${now.getDate()}`.padStart(2, 0);
+    const month = `${now.getMonth() + 1}`.padStart(2, 0);
+    const year = now.getFullYear();
+    const hour = `${now.getHours()}`.padStart(2, 0);
+    const minute = `${now.getMinutes()}`.padStart(2, 0);
+    labelDate.textContent = `${day}/${month}/${year}, ${hour}:${minute}`;
+
     clearInputFields(inputLoginUsername, inputLoginPin);
     updateUI(currentAccount);
   }
@@ -174,6 +203,11 @@ btnTransfer.addEventListener('click', function (event) {
   ) {
     currentAccount.movements.push(-amount);
     receiverAccount.movements.push(amount);
+
+    // Add transfer date
+    currentAccount.movementsDates.push(new Date().toISOString());
+    receiverAccount.movementsDates.push(new Date().toISOString());
+
     updateUI(currentAccount);
   }
 });
@@ -187,6 +221,10 @@ btnLoan.addEventListener('click', function (event) {
     currentAccount.movements.some((movement) => movement >= amount * 0.1)
   ) {
     currentAccount.movements.push(amount);
+
+    // Add loan date
+    currentAccount.movementsDates.push(new Date().toISOString());
+
     updateUI(currentAccount);
   }
   clearInputFields(inputLoanAmount);

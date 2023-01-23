@@ -158,3 +158,28 @@ const calcDaysPassed = (date1, date2) =>
   Math.abs((date2 - date1) / (1000 * 60 * 60 * 24));
 const days1 = calcDaysPassed(new Date(2037, 3, 14), new Date(2037, 3, 24));
 console.log(days1); // 10
+
+// <-- Internationalizing Numbers (Intl) -->
+
+const number = 3884764.23;
+console.log('US:', new Intl.NumberFormat('en-US').format(number)); // US: 3,884,764.23
+console.log('Germany:', new Intl.NumberFormat('de-DE').format(number)); // Germany: 3.884.764,23
+console.log('Syria:', new Intl.NumberFormat('ar-SY').format(number)); // Syria: ٣٬٨٨٤٬٧٦٤٫٢٣
+console.log(
+  'Browser:',
+  new Intl.NumberFormat(navigator.language).format(number)
+);
+
+const options = {
+  style: 'unit',
+  unit: 'mile-per-hour'
+  // useGrouping: false
+};
+
+console.log('US:', new Intl.NumberFormat('en-US', options).format(number)); // US: 3,884,764.23 mph
+console.log('Germany:', new Intl.NumberFormat('de-DE', options).format(number)); // 3.884.764,23 mi/h
+console.log('Syria:', new Intl.NumberFormat('ar-SY', options).format(number));
+console.log(
+  'Browser:',
+  new Intl.NumberFormat(navigator.language, options).format(number)
+);

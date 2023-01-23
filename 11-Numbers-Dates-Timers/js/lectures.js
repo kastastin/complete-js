@@ -183,3 +183,22 @@ console.log(
   'Browser:',
   new Intl.NumberFormat(navigator.language, options).format(number)
 );
+
+// <-- Timers: setTimeout and setInterval -->
+console.clear();
+
+const ingredients = ['cheese', 'olives'];
+const pizzaTimer = setTimeout(
+  (ing1, ing2) => console.log(`Here is your pizza [${ing1}, ${ing2}]`),
+  3000,
+  ...ingredients
+);
+console.log('Waiting...');
+
+if (ingredients.includes('cheese')) clearTimeout(pizzaTimer);
+
+// setInterval
+setInterval(function () {
+  const now = new Date();
+  console.log(now);
+}, 5000);

@@ -70,7 +70,6 @@ const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
 // <-- Functions -->
-
 const formatMovementDate = function (date, locale) {
   const calcDaysPassed = (date1, date2) =>
     Math.round(Math.abs((date2 - date1) / (1000 * 60 * 60 * 24)));
@@ -188,13 +187,34 @@ const clearInputFields = function (firstInput, secondInput) {
   secondInput.blur();
 };
 
-// <-- Event Handlers -->
-let currentAccount;
+const logout = function () {
+  labelWelcome.textContent = 'Log in to get started';
+  containerApp.style.opacity = 0;
+};
 
-// Fake always logged in
-currentAccount = account1;
-updateUI(currentAccount);
-containerApp.style.opacity = 1;
+const startLogOutTimer = function () {
+  const tick = function () {
+    const minutes = String(Math.trunc(time / 60)).padStart(2, 0);
+    const seconds = String(time % 60).padStart(2, 0);
+    labelTimer.textContent = `${minutes}:${seconds}`;
+
+    if (time === 0) {
+      clearInterval(timer);
+      logout();
+    }
+
+    time--;
+  };
+
+  let time = 180;
+  tick();
+  const timer = setInterval(tick, 1000);
+
+  return timer;
+};
+
+// <-- Event Handlers -->
+let currentAccount, timer;
 
 btnLogin.addEventListener('click', function (event) {
   event.preventDefault();
@@ -211,7 +231,6 @@ btnLogin.addEventListener('click', function (event) {
     containerApp.style.opacity = 1;
 
     // Create current date and time
-    const locale = navigator.language;
     const options = {
       hour: 'numeric',
       minute: 'numeric',
@@ -223,6 +242,9 @@ btnLogin.addEventListener('click', function (event) {
       currentAccount.locale,
       options
     ).format(new Date());
+
+    if (timer) clearInterval(timer);
+    timer = startLogOutTimer();
 
     updateUI(currentAccount);
   }
@@ -251,6 +273,10 @@ btnTransfer.addEventListener('click', function (event) {
     receiverAccount.movementsDates.push(new Date().toISOString());
 
     updateUI(currentAccount);
+
+    // Reset Timer
+    clearInterval(timer);
+    timer = startLogOutTimer();
   }
   clearInputFields(inputTransferTo, inputTransferAmount);
 });
@@ -267,6 +293,10 @@ btnLoan.addEventListener('click', function (event) {
       currentAccount.movements.push(amount);
       currentAccount.movementsDates.push(new Date().toISOString());
       updateUI(currentAccount);
+
+      // Reset Timer
+      clearInterval(timer);
+      timer = startLogOutTimer();
     }, 2000);
   }
   clearInputFields(inputLoanAmount);
@@ -283,13 +313,14 @@ btnClose.addEventListener('click', function (event) {
       (account) => account.username === currentAccount.username
     );
     accounts.splice(index, 1);
-    containerApp.style.opacity = 0;
+    logout();
   }
 });
 
 let sortedState = false;
 btnSort.addEventListener('click', function (event) {
   event.preventDefault();
+
   sortedState = !sortedState;
-  displayMovements(currentAccount.movements, sortedState);
+  displayMovements(currentAccount, sortedState);
 });

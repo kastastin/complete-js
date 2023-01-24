@@ -15,7 +15,7 @@ document.getElementsByClassName('btn');
 
 // Creating and inserting elements
 const message = document.createElement('div');
-message.classList.add('cookie-message');
+message.classList.add('cookies');
 // message.textContent = 'We use cookied for improved functionality and analytics.';
 message.innerHTML =
   'We use cookied for improved functionality and analytics. <button class="btn btn--close-cookie">Got it!</button>';
@@ -32,3 +32,34 @@ document
     // message.remove();
     message.parentElement.removeChild(message);
   });
+
+// <-- Styles, Attributes and Classes -->
+console.clear();
+
+message.style.backgroundColor = '#37383d';
+message.style.width = '50vw';
+console.log(message.style.width); // 50vw (only inline styles)
+console.log(getComputedStyle(message).color); // rgb(187, 187, 187)
+// document.documentElement.style.setProperty('--color-primary', 'teal');
+
+// Attributes
+const logo = document.querySelector('.nav__logo');
+console.log(logo.src); // http://127.0.0.1:5500/12-Advanced-DOM-Bankist/img/logo.png
+console.log(logo.getAttribute('src')); // img/logo.png
+console.log(logo.getAttribute('alt')); // Bankist logo
+
+logo.alt = 'Beautiful minimalist logo';
+logo.setAttribute('company', 'Bankist');
+
+const link = document.querySelector('.nav__link--btn');
+console.log(link.href); // http://127.0.0.1:5500/12-Advanced-DOM-Bankist/#
+console.log(link.getAttribute('href')); // #
+
+// Data attributes
+console.log(logo.dataset.versionNumber); // 3.0
+
+// Classes
+logo.classList.add('test');
+logo.classList.remove('test');
+logo.classList.toggle('test');
+logo.classList.contains('test');

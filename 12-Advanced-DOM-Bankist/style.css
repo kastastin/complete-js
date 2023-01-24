@@ -662,13 +662,20 @@ h4 {
 }
 
 /* COOKIE MESSAGE */
-.cookie-message {
+.cookies {
+  position: fixed;
+  bottom: 15px;
   display: flex;
-  align-items: center;
   justify-content: space-evenly;
-  width: 100%;
+  align-items: center;
+  width: 50%;
+  min-height: 7%;
+  padding: 10px;
+  border-radius: 2% / 30%;
+  box-shadow: 3px -4px teal;
   background-color: white;
   color: #bbb;
   font-size: 1.5rem;
   font-weight: 400;
+  z-index: 100;
 }

@@ -63,3 +63,11 @@ logo.classList.add('test');
 logo.classList.remove('test');
 logo.classList.toggle('test');
 logo.classList.contains('test');
+
+// <-- pageYOffset and clientHeight -->
+
+console.log(`
+  Current scroll (X/Y): ${window.pageXOffset}/${window.pageYOffset}\n
+  Height Viewport: ${document.documentElement.clientHeight}\n
+  Width Viewport${document.documentElement.clientWidth}
+`);

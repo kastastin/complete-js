@@ -25,3 +25,18 @@ document.addEventListener('keydown', function (event) {
   if (event.key === 'Escape' && !modal.classList.contains('hidden'))
     closeModal();
 });
+
+// <-- Implementing Smooth Scrolling -->
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+
+btnScrollTo.addEventListener('click', function (event) {
+  const s1coords = section1.getBoundingClientRect();
+
+  window.scrollTo({
+    left: 0,
+    top: s1coords.top + window.pageYOffset,
+    behavior: 'smooth'
+  });
+  // section1.scrollIntoView({ behavior: 'smooth' }); // modern way
+});

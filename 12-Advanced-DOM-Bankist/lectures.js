@@ -71,3 +71,18 @@ console.log(`
   Height Viewport: ${document.documentElement.clientHeight}\n
   Width Viewport${document.documentElement.clientWidth}
 `);
+
+// <-- Types of Events and Event Handlers -->
+console.clear();
+
+const h1 = document.querySelector('h1');
+const alertH1 = function () {
+  alert(`'mouseenter' addEventListener`);
+
+  setTimeout(() => h1.removeEventListener('mouseenter', alertH1), 3000);
+};
+
+h1.addEventListener('mouseenter', alertH1);
+
+// Oldschool way
+// h1.onmouseenter = alertH1;

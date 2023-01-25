@@ -86,3 +86,31 @@ h1.addEventListener('mouseenter', alertH1);
 
 // Oldschool way
 // h1.onmouseenter = alertH1;
+
+// <-- Event Propagation: Bubbling and Capturing -->
+const randomInt = (min = 0, max = 255) =>
+  Math.floor(Math.random() * (max - min + 1) + min);
+const randomColor = () => `rgb(${randomInt()}, ${randomInt()}, ${randomInt()})`;
+
+document
+  .querySelector('.nav__link')
+  .addEventListener('click', function (event) {
+    this.style.backgroundColor = randomColor();
+    console.log('Link', event.target, event.currentTarget);
+    console.log(event.currentTarget === this); // true
+
+    // Stop propagation
+    event.stopPropagation();
+  });
+
+document
+  .querySelector('.nav__links')
+  .addEventListener('click', function (event) {
+    this.style.backgroundColor = randomColor();
+    console.log('Link Container', event.target, event.currentTarget);
+  });
+
+document.querySelector('.nav').addEventListener('click', function (event) {
+  this.style.backgroundColor = randomColor();
+  console.log('Nav', event.target, event.currentTarget);
+});

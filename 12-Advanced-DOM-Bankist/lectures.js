@@ -114,3 +114,13 @@ document.querySelector('.nav').addEventListener('click', function (event) {
   this.style.backgroundColor = randomColor();
   console.log('Nav', event.target, event.currentTarget);
 });
+
+// <-- Page Navigation Without Delegation -->
+document.querySelectorAll('.nav__link').forEach(function (element) {
+  element.addEventListener('click', function (event) {
+    event.preventDefault();
+
+    const id = this.getAttribute('href');
+    document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+  });
+});

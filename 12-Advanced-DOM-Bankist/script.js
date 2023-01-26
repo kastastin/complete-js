@@ -96,3 +96,12 @@ const handleHover = function (event) {
 // Passing 'argument' into handler
 nav.addEventListener('mouseover', handleHover.bind(0.5));
 nav.addEventListener('mouseout', handleHover.bind(1));
+
+// <-- Sticky navigation -->
+const initialCoords = section1.getBoundingClientRect();
+
+window.addEventListener('scroll', function (event) {
+  this.window.scrollY > initialCoords.top
+    ? nav.classList.add('sticky')
+    : nav.classList.remove('sticky');
+});

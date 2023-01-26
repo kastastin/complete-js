@@ -6,6 +6,7 @@ const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
 
 const nav = document.querySelector('.nav');
+const header = document.querySelector('.header');
 const section1 = document.querySelector('#section--1');
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 const navigationLinks = document.querySelector('.nav__links');
@@ -97,11 +98,20 @@ const handleHover = function (event) {
 nav.addEventListener('mouseover', handleHover.bind(0.5));
 nav.addEventListener('mouseout', handleHover.bind(1));
 
-// <-- Sticky navigation -->
-const initialCoords = section1.getBoundingClientRect();
+// <-- Sticky navigation: Intersection Observer API -->
+const navHeight = nav.getBoundingClientRect().height;
 
-window.addEventListener('scroll', function (event) {
-  this.window.scrollY > initialCoords.top
-    ? nav.classList.add('sticky')
-    : nav.classList.remove('sticky');
+const stickyNav = function (entries) {
+  const [entry] = entries;
+
+  entry.isIntersecting
+    ? nav.classList.remove('sticky')
+    : nav.classList.add('sticky');
+};
+
+const headerObserver = new IntersectionObserver(stickyNav, {
+  root: null,
+  threshold: 0,
+  rootMargin: `-${navHeight}px`
 });
+headerObserver.observe(header);

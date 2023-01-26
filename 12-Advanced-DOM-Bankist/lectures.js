@@ -152,3 +152,15 @@ console.log(h1.parentElement.children);
 [...h1.parentElement.children].forEach(function (element) {
   if (element !== h1) element.style.transform = 'scale(0.5)';
 });
+
+// <-- Sticky navigation -->
+const nav = document.querySelector('.nav');
+const section1 = document.querySelector('#section--1');
+
+const initialCoords = section1.getBoundingClientRect();
+
+window.addEventListener('scroll', function () {
+  this.window.scrollY > initialCoords.top
+    ? nav.classList.add('sticky')
+    : nav.classList.remove('sticky');
+});

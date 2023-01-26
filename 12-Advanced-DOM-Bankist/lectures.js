@@ -83,6 +83,7 @@ const alertH1 = function () {
 };
 
 h1.addEventListener('mouseenter', alertH1);
+h1.removeEventListener('mouseenter', alertH1);
 
 // Oldschool way
 // h1.onmouseenter = alertH1;
@@ -123,4 +124,31 @@ document.querySelectorAll('.nav__link').forEach(function (element) {
     const id = this.getAttribute('href');
     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
   });
+});
+
+// <-- DOM Traversing -->
+
+console.log(h1.querySelectorAll('.highlight'));
+console.log(h1.childNodes);
+console.log(h1.children); // [span.highlight, br, span.highlight]
+h1.firstElementChild.style.color = 'white';
+h1.lastElementChild.style.color = 'red';
+
+// Going upwards: parents
+console.log(h1.parentNode);
+console.log(h1.parentElement);
+
+h1.closest('.header').style.background = 'var(--gradient-secondary)';
+h1.closest('h1').style.background = 'var(--gradient-primary)';
+
+// Going sideways: siblings
+console.log(h1.previousElementSibling); // null
+console.log(h1.nextElementSibling);
+
+console.log(h1.previousSibling); // #text
+console.log(h1.nextSibling); // #text
+
+console.log(h1.parentElement.children);
+[...h1.parentElement.children].forEach(function (element) {
+  if (element !== h1) element.style.transform = 'scale(0.5)';
 });

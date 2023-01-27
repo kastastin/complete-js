@@ -564,26 +564,22 @@ h4 {
 }
 
 .footer__link {
-  font-size: 1.6rem;
   color: #eee;
+  font-size: 1.6rem;
   text-decoration: none;
 }
 
 .footer__logo {
-  height: 5rem;
   display: block;
+  height: 5rem;
   margin: 0 auto;
   margin-bottom: 5rem;
 }
 
 .footer__copyright {
-  font-size: 1.4rem;
   color: #aaa;
-  text-align: center;
-}
-
-.footer__copyright .footer__link {
   font-size: 1.4rem;
+  text-align: center;
 }
 
 /* MODAL WINDOW */

@@ -28,10 +28,12 @@ class Account {
 
   deposit(value) {
     this.#movements.push(value);
+    return this;
   }
 
   withdraw(value) {
     this.deposit(-value);
+    return this;
   }
 
   requestLoan(value, pin) {
@@ -41,6 +43,7 @@ class Account {
     } else {
       console.log('Error');
     }
+    return this;
   }
 
   // Private methods
@@ -63,3 +66,9 @@ console.log(acc1);
 console.log(acc1.getMovements()); // [200, -100, 1000]
 // console.log(acc1.#movements); // SyntaxError
 // console.log(acc1.#pin); //SyntaxError: Private field '#pin' must be declared in an enclosing class
+
+// <-- Chaining Methods -->
+console.clear();
+
+acc1.deposit(300).deposit(500).withdraw(100).requestLoan(250, 1111);
+console.log(acc1.getMovements()); // [200, -100, 1000, 300, 500, -100, 250]

@@ -40,11 +40,13 @@ class Vehicle {
   accelerate() {
     this.speed += 10;
     this.displaySpeed();
+    return this;
   }
 
   brake() {
     this.speed -= 5;
     this.displaySpeed();
+    return this;
   }
 
   displaySpeed() {
@@ -90,3 +92,33 @@ const tesla = new EV('Tesla', 120, 50);
 tesla.chargeBattery(80);
 tesla.brake(); // Tesla speed: 115 km/h
 tesla.accelerate(); // Tesla speed: 135, charge: 79 %
+
+// <-- Coding Challenge #4 -->
+console.clear();
+
+class ElectricVehicle extends Vehicle {
+  #charge;
+
+  constructor(make, speed, charge) {
+    super(make, speed);
+    this.#charge = charge;
+  }
+
+  #displaySpeed() {
+    console.log(
+      `${this.make} speed: ${this.speed} km/h, charge: ${this.#charge}`
+    );
+  }
+
+  chargeBattery(chargeTo) {
+    this.#charge = chargeTo;
+    this.#displaySpeed();
+    return this;
+  }
+}
+
+const rivian = new ElectricVehicle('Rivian', 120, 23);
+console.log(rivian);
+rivian.chargeBattery(20);
+rivian.accelerate().brake();
+rivian.chargeBattery(100).brake().accelerate();

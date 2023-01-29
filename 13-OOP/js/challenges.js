@@ -27,3 +27,41 @@ bmw.brake(); // BMW speed: 125 km/h
 const mercedes = new Car('Mercedes', 95);
 mercedes.accelerate(); // Mercedes speed: 105 km/h
 mercedes.brake(); // Mercedes speed: 100 km/h
+
+// <-- Coding Challenge #2 -->
+console.clear();
+
+class Vehicle {
+  constructor(make, speed) {
+    this.make = make;
+    this.speed = speed;
+  }
+
+  accelerate() {
+    this.speed += 10;
+    this.displaySpeed();
+  }
+
+  brake() {
+    this.speed -= 5;
+    this.displaySpeed();
+  }
+
+  displaySpeed() {
+    console.log(`${this.make} speed: ${this.speed} km/h`);
+  }
+
+  get speedUS() {
+    return (this.speed / 1.6).toFixed(1) + ' mi/h';
+  }
+
+  set speedUS(speed) {
+    this.speed = (speed * 1.6).toFixed(1);
+  }
+}
+
+const ford = new Vehicle('Ford', 120);
+console.log(ford.speedUS);
+
+ford.speedUS = 50;
+ford.displaySpeed();

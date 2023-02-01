@@ -1,6 +1,5 @@
 'use strict';
 
-// Code from past
 const countriesContainer = document.querySelector('.countries');
 
 const renderCountry = function (data, className = '') {
@@ -29,22 +28,21 @@ const renderCountry = function (data, className = '') {
 
 // <-- Promise is a container for a future value -->
 
-// const getCountryData = function (country) {
-//   fetch(`https://restcountries.com/v3.1/name/${country}`)
-//     .then(function (response) {
-//       console.log(response);
-//       return response.json();
-//     })
-//     .then(function (data) {
-//       console.log(data);
-//       renderCountry(data[0]);
-//     });
-// };
-
 const getCountryData = function (country) {
+  // Fetch First Country
   fetch(`https://restcountries.com/v3.1/name/${country}`)
     .then((response) => response.json())
-    .then((data) => renderCountry(data[0]));
+    .then((data) => {
+      renderCountry(data[0]);
+      const neighbour = data[0].borders?.[0];
+
+      if (!neighbour) return;
+
+      // Fetch Second Country (neighbour)
+      return fetch(`https://restcountries.com/v3.1/alpha/${neighbour}`);
+    })
+    .then((response) => response.json())
+    .then((data) => renderCountry(data[0], 'neighbour'));
 };
 
 getCountryData('ukraine');

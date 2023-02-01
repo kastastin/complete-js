@@ -1,6 +1,11 @@
 'use strict';
 
 const countriesContainer = document.querySelector('.countries');
+const btn = document.querySelector('.btn-country');
+
+const renderError = function (message) {
+  countriesContainer.insertAdjacentText('beforeend', message);
+};
 
 const renderCountry = function (data, className = '') {
   const html = `
@@ -23,7 +28,6 @@ const renderCountry = function (data, className = '') {
   `;
 
   countriesContainer.insertAdjacentHTML('beforeend', html);
-  countriesContainer.style.opacity = 1;
 };
 
 // <-- Promise is a container for a future value -->
@@ -42,7 +46,18 @@ const getCountryData = function (country) {
       return fetch(`https://restcountries.com/v3.1/alpha/${neighbour}`);
     })
     .then((response) => response.json())
-    .then((data) => renderCountry(data[0], 'neighbour'));
+    .then((data) => renderCountry(data[0], 'neighbour'))
+    .catch((error) => {
+      console.error(`${error} 🧐`);
+      renderError(`Something went wrong 🤬\n${error.message}`);
+    })
+    .finally(() => {
+      countriesContainer.style.opacity = 1;
+    });
 };
 
-getCountryData('ukraine');
+btn.addEventListener('click', function () {
+  getCountryData('ukraine');
+});
+
+// getCountryData('ukrainefjdk');

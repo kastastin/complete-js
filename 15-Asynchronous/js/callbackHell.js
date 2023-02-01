@@ -39,7 +39,7 @@ const getCountryAndCountry = function (country) {
     console.log(data);
 
     // Get Neighbour Country
-    const [neighbour] = data.borders;
+    const neighbour = data.borders?.neighbour;
 
     if (!neighbour) return;
 
@@ -55,7 +55,7 @@ const getCountryAndCountry = function (country) {
   });
 };
 
-getCountryAndCountry('usa');
+getCountryAndCountry('Pilipinas');
 
 // <-- Callback Hell -->
 setTimeout(function () {

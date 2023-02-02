@@ -1,5 +1,6 @@
 'use strict';
 
+// <-- Coding Challenge #1 -->
 const countriesContainer = document.querySelector('.countries');
 const btn = document.querySelector('.btn-country');
 
@@ -29,8 +30,6 @@ const renderCountry = function (data, className = '') {
 
   countriesContainer.insertAdjacentHTML('beforeend', html);
 };
-
-// <-- Promise is a container for a future value -->
 
 const getJSON = function (url, errorMessage = 'Something went wrong') {
   return fetch(url).then((response) => {
@@ -67,6 +66,48 @@ const getCountryData = function (country) {
     });
 };
 
-btn.addEventListener('click', function () {
-  getCountryData('australia');
-});
+const getCoords = function () {
+  if (navigator.geolocation)
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        const coords = `${latitude}, ${longitude}`;
+
+        // Custom Coords
+        // const coords = '52.508, 13.381';
+        // const coords = '19.037, 72.873';
+        // const coords = '-33.933, 18.474';
+
+        btn.textContent = coords;
+        btn.removeEventListener('click', getCoords);
+        btn.addEventListener('click', whereAmI.bind(null, coords));
+      },
+      () => alert('Error (no coords)')
+    );
+};
+
+const whereAmI = function (coords) {
+  const [lat, lng] = coords.split(', ');
+
+  fetch(
+    `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}&localityLanguage=en`
+  )
+    .then((response) => {
+      if (!response.ok)
+        throw new Error(`Wrong API request (${response.status})`);
+
+      return response.json();
+    })
+    .then((data) => {
+      console.log(`
+        Continent: ${data.continent}\n\
+        Country: ${data.countryName}\n\
+        City: ${data.city}\n\
+        Locality: ${data.locality}
+      `);
+      getCountryData(data.countryName);
+    })
+    .catch((error) => console.log(`Something went wrong!\n${error}`));
+};
+
+btn.addEventListener('click', getCoords);

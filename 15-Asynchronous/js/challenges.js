@@ -4,10 +4,6 @@
 const countriesContainer = document.querySelector('.countries');
 const btn = document.querySelector('.btn-country');
 
-const renderError = function (message) {
-  countriesContainer.insertAdjacentText('beforeend', message);
-};
-
 const renderCountry = function (data, className = '') {
   const html = `
   <article class="country ${className}">
@@ -31,72 +27,25 @@ const renderCountry = function (data, className = '') {
   countriesContainer.insertAdjacentHTML('beforeend', html);
 };
 
-const getJSON = function (url, errorMessage = 'Something went wrong') {
-  return fetch(url).then((response) => {
-    if (!response.ok) throw new Error(`${errorMessage} [${response.status}]`);
-    return response.json();
+const getPosition = function () {
+  return new Promise(function (resolve, reject) {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
   });
 };
 
-const getCountryData = function (country) {
-  // Fetch First Country
-  getJSON(
-    `https://restcountries.com/v3.1/name/${country}`,
-    `'${country}' not found`
-  )
-    .then((data) => {
-      renderCountry(data[0]);
-      const neighbour = data[0].borders?.[0];
+const whereAmI = function () {
+  getPosition()
+    .then((pos) => {
+      const { latitude: lat, longitude: lng } = pos.coords;
 
-      if (!neighbour) throw new Error('No neighbour found!');
-
-      // Fetch Second Country (neighbour)
-      return getJSON(
-        `https://restcountries.com/v3.1/alpha/${neighbour}`,
-        `'${neighbour}' not found`
+      return fetch(
+        `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}&localityLanguage=en`
       );
     })
-    .then((data) => renderCountry(data[0], 'neighbour'))
-    .catch((error) => {
-      console.error(`${error} 🧐`);
-      renderError(`Something went wrong. ${error.message}`);
-    })
-    .finally(() => {
-      countriesContainer.style.opacity = 1;
-    });
-};
+    .then((res) => {
+      if (!res.ok) throw new Error(`Problem with geocoding ${res.status}`);
 
-const getCoords = function () {
-  if (navigator.geolocation)
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const { latitude, longitude } = position.coords;
-        const coords = `${latitude}, ${longitude}`;
-
-        // Custom Coords
-        // const coords = '52.508, 13.381';
-        // const coords = '19.037, 72.873';
-        // const coords = '-33.933, 18.474';
-
-        btn.textContent = coords;
-        btn.removeEventListener('click', getCoords);
-        btn.addEventListener('click', whereAmI.bind(null, coords));
-      },
-      () => alert('Error (no coords)')
-    );
-};
-
-const whereAmI = function (coords) {
-  const [lat, lng] = coords.split(', ');
-
-  fetch(
-    `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}&localityLanguage=en`
-  )
-    .then((response) => {
-      if (!response.ok)
-        throw new Error(`Wrong API request (${response.status})`);
-
-      return response.json();
+      return res.json();
     })
     .then((data) => {
       console.log(`
@@ -105,9 +54,19 @@ const whereAmI = function (coords) {
         City: ${data.city}\n\
         Locality: ${data.locality}
       `);
-      getCountryData(data.countryName);
+
+      return fetch(`https://restcountries.com/v3.1/name/${data.countryName}`);
     })
-    .catch((error) => console.log(`Something went wrong!\n${error}`));
+    .then((res) => {
+      if (!res.ok) throw new Error(`Country not found (${res.status})`);
+
+      return res.json();
+    })
+    .then((data) => renderCountry(data[0]))
+    .catch((err) => console.error(`${err.message} 💥`))
+    .finally(() => {
+      countriesContainer.style.opacity = 1;
+    });
 };
 
-btn.addEventListener('click', getCoords);
+btn.addEventListener('click', whereAmI);

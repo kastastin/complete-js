@@ -2,6 +2,10 @@
 
 const countriesContainer = document.querySelector('.countries');
 
+const renderError = function (message) {
+  countriesContainer.insertAdjacentText('beforeend', message);
+};
+
 const renderCountry = function (data, className = '') {
   const html = `
   <article class="country ${className}">
@@ -22,7 +26,6 @@ const renderCountry = function (data, className = '') {
   </article>
   `;
 
-  countriesContainer.style.opacity = 1;
   countriesContainer.insertAdjacentHTML('beforeend', html);
 };
 
@@ -34,23 +37,46 @@ const getPosition = function () {
 
 // <-- Async & Await -->
 const whereAmI = async function () {
-  // Geolocation
-  const position = await getPosition();
-  const { latitude: lat, longitude: lng } = position.coords;
+  try {
+    // Geolocation
+    const position = await getPosition();
+    const { latitude: lat, longitude: lng } = position.coords;
 
-  // Reverse geocoding
-  const responseGeocoding = await fetch(
-    `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}&localityLanguage=en`
-  );
-  const dataGeocoding = await responseGeocoding.json();
+    // Reverse geocoding
+    const responseGeocoding = await fetch(
+      `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}&localityLanguage=en`
+    );
+    if (!responseGeocoding.ok)
+      throw new Error(
+        `Wrong bigdatacloud API request. ${responseGeocoding.status}`
+      );
+    const dataGeocoding = await responseGeocoding.json();
 
-  // Country data
-  const responseCountryInfo = await fetch(
-    `https://restcountries.com/v3.1/name/${dataGeocoding.countryName}`
-  );
-  const dataCountryInfo = await responseCountryInfo.json();
+    // Country data
+    const responseCountryInfo = await fetch(
+      `https://restcountries.com/v3.1/name/${dataGeocoding.countryName}`
+    );
+    if (!responseCountryInfo.ok)
+      throw new Error(
+        `Wrong restcountries API request. ${responseCountryInfo.status}`
+      );
+    const dataCountryInfo = await responseCountryInfo.json();
 
-  renderCountry(dataCountryInfo[0]);
+    renderCountry(dataCountryInfo[0]);
+  } catch (error) {
+    renderError(`Something went wrong! (${error.message}) 🛑`);
+    console.error(`${error} 🔴`);
+  } finally {
+    countriesContainer.style.opacity = 1;
+  }
 };
 
 whereAmI();
+
+// try {
+//   let y = 1;
+//   const x = 2;
+//   x = 3;
+// } catch (error) {
+//   alert(error.message);
+// }

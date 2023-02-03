@@ -61,22 +61,32 @@ const whereAmI = async function () {
         `Wrong restcountries API request. ${responseCountryInfo.status}`
       );
     const dataCountryInfo = await responseCountryInfo.json();
-
     renderCountry(dataCountryInfo[0]);
+
+    return `You are in ${dataGeocoding.city}, ${dataGeocoding.countryName}`;
   } catch (error) {
     renderError(`Something went wrong! (${error.message}) 🛑`);
     console.error(`${error} 🔴`);
+
+    // Reject promise returned from async function
+    throw error;
   } finally {
     countriesContainer.style.opacity = 1;
   }
 };
 
-whereAmI();
+console.log('1: Will get location');
+// whereAmI()
+//   .then((city) => console.log(`2: ${city}`))
+//   .catch((error) => console.error(`2: ${error.message}`))
+//   .finally(() => console.log('3: Finished getting location'));
 
-// try {
-//   let y = 1;
-//   const x = 2;
-//   x = 3;
-// } catch (error) {
-//   alert(error.message);
-// }
+(async function () {
+  try {
+    const city = await whereAmI();
+    console.log(`2: ${city}`);
+  } catch (error) {
+    console.error(`2: ${error.message}`);
+  }
+  console.log('3: Finished getting location');
+})();

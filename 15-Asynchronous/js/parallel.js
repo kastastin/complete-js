@@ -20,9 +20,62 @@ const get3Countries = async function (c1, c2, c3) {
       getJSON(`https://restcountries.com/v3.1/name/${c3}`)
     ]);
 
-    console.log(data.map((elem) => elem[0].capital[0])); // ['Lisbon', 'Ottawa', 'Dodoma']
+    // console.log(data.map((elem) => elem[0].capital[0])); // ['Lisbon', 'Ottawa', 'Dodoma']
   } catch (error) {
     console.error(error);
   }
 };
 get3Countries('portugal', 'canada', 'tanzania');
+
+// <-- Promise Combinators -->
+console.clear();
+
+// Promise.race -> first settled promise wins the race
+(async function () {
+  const response = await Promise.race([
+    getJSON(`https://restcountries.com/v3.1/name/italy`),
+    getJSON(`https://restcountries.com/v3.1/name/egypt`),
+    getJSON(`https://restcountries.com/v3.1/name/mexico`)
+  ]);
+
+  console.log(response[0].name.common);
+})();
+
+const timeout = function (seconds) {
+  return new Promise(function (_, reject) {
+    setTimeout(function () {
+      reject(new Error('Request took too long!'));
+    }, seconds * 1000);
+  });
+};
+
+Promise.race([
+  getJSON(`https://restcountries.com/v3.1/name/mexico`),
+  timeout(1)
+])
+  .then((data) => console.log(data[0]))
+  .catch((error) => console.error(error));
+
+// Promise.allSettled
+Promise.allSettled([
+  Promise.resolve('Success'),
+  Promise.reject('Error'),
+  Promise.resolve('Another success')
+]).then((data) => console.log(data));
+
+Promise.all([
+  Promise.resolve('Success'),
+  Promise.reject('Error'),
+  Promise.resolve('Another success')
+])
+  .then((data) => console.log(data))
+  .catch((error) => console.error(error));
+
+// Promise.any
+Promise.any([
+  Promise.resolve('Success'),
+  Promise.reject('Error'),
+  Promise.resolve('Another success')
+])
+  .then((data) => console.log(data))
+  .catch((error) => console.error(error));

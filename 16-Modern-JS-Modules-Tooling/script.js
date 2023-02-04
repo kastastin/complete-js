@@ -30,10 +30,39 @@ const getLastPost = async function () {
 };
 
 const lastPost = getLastPost();
-console.log(lastPost); // Promise {<pending>}
+// console.log(lastPost); // Promise {<pending>}
 
 // Not very clean
-lastPost.then((last) => console.log(last)); // {...}
+// lastPost.then((last) => console.log(last)); // {...}
 
 const lastPost2 = await getLastPost();
-console.log(lastPost2); // {...}
+// console.log(lastPost2); // {...}
+
+// <-- Implementation of The Module Pattern -->
+const ShoppingCart2 = (function () {
+  const cart = [];
+  const shippingCost = 10;
+  const totalPrice = 237;
+  const totalQuantity = 23;
+
+  const addToCart = function (product, quantity) {
+    cart.push({ product, quantity });
+    console.log(`${quantity} ${product} added to cart`);
+  };
+
+  const orderStock = function (product, quantity) {
+    console.log(`${quantity} ${product} ordered from supplier`);
+  };
+
+  return {
+    addToCart,
+    cart,
+    totalPrice,
+    totalQuantity
+  };
+})();
+
+ShoppingCart2.addToCart('toy', 4);
+ShoppingCart2.addToCart('pizza', 2);
+console.log(ShoppingCart2); // {...}
+console.log(ShoppingCart2.shippingCost); // undefined

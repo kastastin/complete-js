@@ -66,3 +66,15 @@ ShoppingCart2.addToCart('toy', 4);
 ShoppingCart2.addToCart('pizza', 2);
 console.log(ShoppingCart2); // {...}
 console.log(ShoppingCart2.shippingCost); // undefined
+
+// <-- CommonJS Modules -->
+// [Export] Not work in the browser, would work in Node.js
+// export.addToCart = function () {
+//   const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+//   const data = await response.json();
+
+//   return { title: data.at(-1).title, text: data.at(-1).body };
+// };
+
+// [Import] Not work in the browser, would work in Node.js
+// const { addToCart } = require('./shoppingCart.js');

@@ -2,19 +2,19 @@
 // import add from './shoppingCart.js';
 // add('apple', 2); // 2 apple added to cart
 
-// import {
-//   addToCart,
-//   totalPrice as price,
-//   totalQuantity,
-//   color
-// } from './shoppingCart.js';
+import {
+  addToCart,
+  totalPrice as price,
+  totalQuantity,
+  color
+} from './shoppingCart.js';
 // import * as Shoppingcart from './shoppingCart.js';
 
 // console.log('Importing module');
 // console.log(shoppingCost); // ReferenceError: shoppingCost is not defined
 
-// addToCart('bread', 5); // 5 bread added to cart
-// console.log(price, totalQuantity, color); // 237 23 'red'
+addToCart('bread', 5); // 5 bread added to cart
+console.log(price, totalQuantity, color); // 237 23 'red'
 // console.log(Shoppingcart.color); // red
 
 // <-- Top-level await (ES2022) -->
@@ -35,7 +35,7 @@ const lastPost = getLastPost();
 // Not very clean
 // lastPost.then((last) => console.log(last)); // {...}
 
-const lastPost2 = await getLastPost();
+// const lastPost2 = await getLastPost();
 // console.log(lastPost2); // {...}
 
 // <-- Implementation of The Module Pattern -->
@@ -80,7 +80,8 @@ const lastPost2 = await getLastPost();
 // const { addToCart } = require('./shoppingCart.js');
 
 // <-- Introduction to NPM -->
-import cloneDeep from './node_modules/lodash-es/cloneDeep.js';
+// import cloneDeep from './node_modules/lodash-es/cloneDeep.js';
+import cloneDeep from 'lodash-es';
 
 const state = {
   cart: [
@@ -94,3 +95,7 @@ const stateDeepClone = cloneDeep(state);
 
 state.user.loggedIn = false;
 console.log(stateClone, stateDeepClone);
+
+if (module.hot) {
+  module.hot.accept();
+}

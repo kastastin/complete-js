@@ -6,7 +6,8 @@ import {
   addToCart,
   totalPrice as price,
   totalQuantity,
-  color
+  color,
+  cart
 } from './shoppingCart.js';
 // import * as Shoppingcart from './shoppingCart.js';
 
@@ -99,3 +100,23 @@ console.log(stateClone, stateDeepClone);
 if (module.hot) {
   module.hot.accept();
 }
+
+class Person {
+  #greeting = 'hey';
+  constructor(firstName) {
+    this.firstName = firstName;
+    console.log(`${this.#greeting}, ${this.firstName}`);
+  }
+}
+const tom = new Person('Tom');
+
+console.log('tom' ?? null);
+console.log(cart.find((el) => el.quantity >= 2));
+Promise.resolve('Test').then((x) => console.log(x));
+
+import 'core-js/stable';
+// import 'core-js/stable/array/find';
+// import 'core-js/stable/promise';
+
+// Polifilling async functions
+import 'regenerator-runtime/runtime';

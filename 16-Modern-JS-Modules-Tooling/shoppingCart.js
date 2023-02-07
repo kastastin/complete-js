@@ -18,7 +18,7 @@ const totalPrice = 237;
 const totalQuantity = 23;
 const mainColor = 'red';
 
-export { totalPrice, totalQuantity, mainColor as color };
+export { cart, totalPrice, totalQuantity, mainColor as color };
 
 // export default function (product, quantity) {
 //   cart.push({ product, quantity });
